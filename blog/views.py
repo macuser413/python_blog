@@ -1,4 +1,7 @@
 from django.shortcuts import render, redirect
+
+from django.db.models import Q # from the tutorial not sure if this is under the hood or not... 
+
 from .models import Author, Blog
 from .forms import AuthorForm, BlogForm
 from django.contrib.auth.decorators import login_required
@@ -79,3 +82,28 @@ def author_edit(request, pk):
 # def search_form(request, info):
 #     author = Author.objects.filter(name__search=info)
 #     return render(request, 'blog/author_list.html', {'author': author})
+
+# Testing Search Feature
+# def search_results(request):
+#     query = ''
+#     if request.GET:
+#         query = request.GET.get('query')
+#     search = Blog.objects.all(query)
+
+#     return render(request, 'blog/search_results.html', {'s': search})
+
+
+def search_results(request):
+    queryset = []   
+    print(request.GET.get('id_q')) 
+    query = request.GET.get('id_q')
+    posts = Blog.objects.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query) |
+            Q(author__icontains=query)
+    ).distinct()
+
+    for post in posts:
+        queryset.append(post)
+
+    return render(request, 'blog/search_results.html', {'search': queryset})

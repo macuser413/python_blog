@@ -13,5 +13,6 @@ urlpatterns = [
     path('blog/delete/<int:pk>', views.blog_delete, name='blog_delete'),
     path('blog/edit/<int:pk>', views.blog_edit, name='blog_edit'),
     path('author/edit/<int:pk>', views.author_edit, name='author_edit'),
+    path('search/id_q', views.search_results, name='search_results'),
     # path('search/<info>', views.search_form, name='search_form')
 ]

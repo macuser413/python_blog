@@ -31,8 +31,16 @@
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="nav-item nav-link active" type="submit">Search</button>
       </form> -->
+
+      <form class="form-inline" action="/search/id_q">
+        <input class="form-control mr-sm-2" type="text" name="q" id="id_q" placeholder="Search" aria-label="Search">
+        <input class="nav-item nav-link active" type="submit">Search</input>
+      </form>
   
     </nav>
     {% block content %} {% endblock %}
   </body>
+  <script type="text/javascript">
+    document.getElementById("id_q").value = "{{query}}"
+  </script>
 </html>
